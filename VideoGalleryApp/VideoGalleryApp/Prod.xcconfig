@@ -1,0 +1,14 @@
+//
+//  Prod.xcconfig
+//  VideoGalleryApp
+//
+//  Created by Ichsan Indra Wahyudi on 29/09/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_URL = https:/$()/api.cloudinary.com/v1_1
+API_KEY = 764292367668433
+API_SECRET = 7joFRwDGPx61FwsII7uEPqqamYE
+CLOUD_NAME = dk3lhojel
