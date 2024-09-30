@@ -75,13 +75,6 @@ CLOUD_NAME = <your-cloud-name>
    - Press the camera button in the bottom-right corner to open the video recorder.
    - Record a new video and upload it to your gallery.
 
-## 🎨 UI Components
-
-- **Video List**: Displays videos in a scrollable list with thumbnails.
-- **Video Player**: Plays videos in fullscreen mode.
-- **Floating Action Button**: A camera button used to open the video recording screen.
-- **Swipe Actions**: Swipe left to delete videos.
-
 ## ⚙️ Tech Stack
 
 - **SwiftUI**: For building user interfaces.
@@ -98,9 +91,9 @@ CLOUD_NAME = <your-cloud-name>
 ## 📝 To-Do
 
 - [ ] Add support for video editing.
-- [ ] Add video filters during recording.
+- [ ] Add button flash and flip camera in video recording page.
+- [ ] Ability to caching the video.
 - [ ] Implement video search functionality.
-- [ ] Improve error handling for failed video uploads.
 - [ ] Implement "Load More" feature for infinite scrolling in the video list.
 
 ## 👨‍💻 Contributing
@@ -132,5 +125,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## ✨ Acknowledgments
 
 - **Moya** for simplifying the network layer.
+- **Cloudinary** for media management and storage.
 - **AlertToast** for the awesome toast notifications used in the app.
 - **SwiftUI** community for amazing resources and tutorials.
