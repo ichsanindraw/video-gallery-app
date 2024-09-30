@@ -33,9 +33,7 @@ class VideoViewModel: ObservableObject {
                 case let .failure(error):
                     self?.state = .error(error.localizedDescription)
                 }
-                print(">>> getVideos -> receiveCompletion: \(completions)")
             }, receiveValue: { data in
-                print(">>> getVideos -> receiveValue")
                 self.state = .success(data.videos)
             })
             .store(in: &cancellables)
@@ -50,7 +48,6 @@ class VideoViewModel: ObservableObject {
         videoService.deleteVideo(id)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completions in
-                print(">>> deleteVideo -> receiveCompletion: \(completions)")
                 switch completions {
                 case .finished:
                     break
@@ -58,7 +55,6 @@ class VideoViewModel: ObservableObject {
                     self?.setToast(state: .success)
                 }
             }, receiveValue: {  [weak self] _ in
-                print(">>> deleteVideo -> receiveValue")
                 self?.getVideos()
                 self?.setToast(state: .success)
             })

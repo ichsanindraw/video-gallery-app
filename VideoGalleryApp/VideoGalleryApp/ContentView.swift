@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var showAlert = false
     @State private var isShowRecorderView = false
     @State private var deletedVideo: Video?
+    @State private var shouldUpdateData = false
     
     var body: some View {
         NavigationView {
@@ -47,7 +48,7 @@ struct ContentView: View {
                         }
                     }
                     .refreshable {
-                        viewModel.getVideos()
+                        getVideos()
                     }
                     
                     // Floating button
@@ -79,25 +80,28 @@ struct ContentView: View {
                     Text(string)
                 }, actions: {
                     Button(action: {
-                        viewModel.getVideos()
+                        getVideos()
                     }, label: {
                         Text("Try Again")
                     })
                 })
             }
-            
         }
-       
         .onAppear {
-            viewModel.getVideos()
+            getVideos()
         }
         .sheet(item: $selectedVideo, content: { video in
             if let url = URL(string: video.secureURL) {
                 FullScreenVideoPlayerView(url: url)
             }
         })
-        .fullScreenCover(isPresented: $isShowRecorderView, content: {
-            VideoRecorderView()
+        .fullScreenCover(isPresented: $isShowRecorderView, onDismiss: {
+            if shouldUpdateData {
+                getVideos()
+                shouldUpdateData = false
+            }
+        }, content: {
+            VideoRecorderView(shouldUpdateData: $shouldUpdateData)
         })
         .alert(isPresented: $showAlert, content: {
             Alert(
@@ -149,6 +153,10 @@ struct ContentView: View {
                 )
             )
         })
+    }
+    
+    private func getVideos() {
+        viewModel.getVideos()
     }
 }
 

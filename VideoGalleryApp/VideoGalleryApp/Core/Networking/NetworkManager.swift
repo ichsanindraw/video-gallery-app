@@ -15,8 +15,7 @@ public class NetworkManager<Target> where Target: TargetType  {
     init() {
         provider = MoyaProvider(
             plugins: [
-                AuthPlugin(),
-                LoggerPlugin()
+                AuthPlugin()
             ]
         )
     }
@@ -30,7 +29,6 @@ public class NetworkManager<Target> where Target: TargetType  {
         provider.request(target) { result in
             switch result {
             case let .failure(error):
-                print(">>> Moya Error: \(error)")
                 subject.send(completion: .failure(.moyaError(error)))
                 
             case let .success(response):
@@ -79,34 +77,6 @@ enum NetworkError: Error {
 
         case let .detail(errors):
             return errors.first ?? ""
-        }
-    }
-}
-
-class LoggerPlugin: PluginType {
-    func willSend(_ request: RequestType, target: TargetType) {
-        print(">>> LoggerPlugin -> willSend")
-        print("Request: \(request.request?.url?.absoluteString ?? "")")
-        if let headers = request.request?.allHTTPHeaderFields {
-            print("Headers: \(headers)")
-        }
-        if let httpBody = request.request?.httpBody,
-           let bodyString = String(data: httpBody, encoding: .utf8) {
-            print("Body: \(bodyString)")
-        }
-    }
-
-    func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
-        print(">>> LoggerPlugin -> didReceive")
-        switch result {
-        case .success(let response):
-            if let json = try? response.mapJSON() {
-                print("Response: \(json)")
-            } else {
-                print("Response data: \(String(data: response.data, encoding: .utf8) ?? "Unable to convert data to string")")
-            }
-        case .failure(let error):
-            print("Error: \(error.localizedDescription)")
         }
     }
 }

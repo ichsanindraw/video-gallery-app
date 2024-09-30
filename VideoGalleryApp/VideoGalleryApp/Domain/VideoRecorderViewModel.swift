@@ -26,11 +26,10 @@ class VideoRecorderViewModel: ObservableObject {
         videoService.uploadVideo(fileURL)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completions in
-                print(">>> postVideo -> receiveCompletion: \(completions)")
                 switch completions {
                 case .finished:
                     break
-                case let .failure(error):
+                case .failure:
                     self?.setToast(state: .error)
                 }
             }, receiveValue: { [weak self] _ in

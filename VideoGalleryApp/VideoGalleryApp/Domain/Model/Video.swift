@@ -77,75 +77,54 @@ struct DeletedVideoCount: Codable {
 // MARK: Uploaded Video Response
 
 struct UploadedVideoResponse: Codable {
-    let assetFolder: String
-    let assetId: String
-    let audio: AudioInfo
-    let bitRate: Int
-    let bytes: Int
-    let createdAt: String
-    let displayName: String
-    let duration: String
-    let etag: String
-    let existing: Int
-    let format: String
-    let frameRate: Int
-    let height: Int
-    let nbFrames: Int
-    let originalFilename: String
-    let pages: Int
-    let placeholder: Int
-    let playbackUrl: String
-    let publicId: String
-    let resourceType: String
-    let rotation: Int
-    let secureUrl: String
-    let signature: String
-    let tags: [String]
-    let type: String
-    let url: String
+    let assetID, publicID: String
     let version: Int
-    let versionId: String
+    let versionID, signature: String
+    let width, height: Int
+    let format, resourceType: String
+    let createdAt: String
+    let pages, bytes: Int
+    let type, etag: String
+    let placeholder: Bool
+    let url: String
+    let secureURL: String
+    let playbackURL: String
+    let assetFolder, displayName: String
+    let existing: Bool
+    let audio: AudioInfo
     let video: VideoInfo
-    let width: Int
+    let frameRate, bitRate: Int
+    let duration: Double
+    let rotation: Int
+    let originalFilename: String
+    let nbFrames: Int
 
     enum CodingKeys: String, CodingKey {
-        case assetFolder = "asset_folder"
-        case assetId = "asset_id"
-        case audio
-        case bitRate = "bit_rate"
-        case bytes
-        case createdAt = "created_at"
-        case displayName = "display_name"
-        case duration
-        case etag
-        case existing
-        case format
-        case frameRate = "frame_rate"
-        case height
-        case nbFrames = "nb_frames"
-        case originalFilename = "original_filename"
-        case pages
-        case placeholder
-        case playbackUrl = "playback_url"
-        case publicId = "public_id"
-        case resourceType = "resource_type"
-        case rotation
-        case secureUrl = "secure_url"
-        case signature
-        case tags
-        case type
-        case url
+        case assetID = "asset_id"
+        case publicID = "public_id"
         case version
-        case versionId = "version_id"
-        case video
-        case width
+        case versionID = "version_id"
+        case signature, width, height, format
+        case resourceType = "resource_type"
+        case createdAt = "created_at"
+        case pages, bytes, type, etag, placeholder, url
+        case secureURL = "secure_url"
+        case playbackURL = "playback_url"
+        case assetFolder = "asset_folder"
+        case displayName = "display_name"
+        case existing, audio, video
+        case frameRate = "frame_rate"
+        case bitRate = "bit_rate"
+        case duration, rotation
+        case originalFilename = "original_filename"
+        case nbFrames = "nb_frames"
     }
 }
 
 struct AudioInfo: Codable {}
 
 struct VideoInfo: Codable {
-    let bitRate: Int
+    let bitRate: String
     let codec: String
     let level: Int
     let pixFormat: String

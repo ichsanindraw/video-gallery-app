@@ -11,14 +11,12 @@ import UIKit
 import SwiftUI
 
 struct VideoRecorderView: View {
-//    private var topSafeAreaHeight: CGFloat {
-//        UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
-//    }
+    @Binding var shouldUpdateData: Bool
     
     @StateObject private var viewModel = VideoRecorderViewModel()
+    @StateObject private var videoRecorder = VideoRecorder()
     
     @Environment(\.presentationMode) var presentationMode
-    @StateObject private var videoRecorder = VideoRecorder()
 
     var body: some View {
     
@@ -105,6 +103,10 @@ struct VideoRecorderView: View {
                     subTitleFont: nil
                 )
             )
+        }, completion: {
+            if case .success = viewModel.toastState {
+                shouldUpdateData = true
+            }
         })
         .alert(isPresented: $videoRecorder.isFinishRecorded) {
             Alert(
